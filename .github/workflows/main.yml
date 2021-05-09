@@ -17,20 +17,22 @@ jobs:
       - uses: r-lib/actions/setup-tinytex@v1
       - name: Install rmarkdown
         run: Rscript -e 'install.packages("rmarkdown")
-      - name: Install rmarkdown
+      - name: Install tidy
         run: Rscript -e 'install.packages("tidverse")'
-      - name: Install rmarkdown
+      - name: Install dy
         run: Rscript -e 'install.packages("dygraph")'
-      - name: Install rmarkdown
+      - name: Install gg
         run: Rscript -e 'install.packages("ggthemes")'
-      - name: Install rmarkdown
+      - name: Install openxlsx
         run: Rscript -e 'install.packages("openxlsx")'
       - name: Install zoo
         run: Rscript -e 'install.packages("zoo")'
-      - name: Install rmarkdown
+      - name: Install jnt
         run: Rscript -e 'install.packages("janitor")'
-      - name: Install rmarkdown
+      - name: Install prsdt
         run: Rscript -e 'install.packages("parsedate")'
+      - name: Install timtk
+        run: Rscript -e 'install.packages("timetk")'
       - name: Render my document to all types
         run: Rscript -e 'rmarkdown::render("BETA_20210505_no_revolut.Rmd", output_format = "all")'
       - name: Commit results
