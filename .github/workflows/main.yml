@@ -39,7 +39,7 @@ jobs:
       - name: Install bse
         run: Rscript -e 'install.packages("base")'
       - name: Render my document to all types
-        run: Rscript -e 'rmarkdown::render("BETA_20210505_no_revolut.Rmd", output_format = "html document")'
+        run: Rscript -e 'rmarkdown::render("BETA_20210505_no_revolut.Rmd", output_format = "all")'
       - name: Commit results
         run: |
           git add docs/my-document*
