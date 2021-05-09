@@ -36,8 +36,10 @@ jobs:
         run: Rscript -e 'install.packages("timetk")'
       - name: Install flex
         run: Rscript -e 'install.packages("flexdashboard")'
+      - name: Install bse
+        run: Rscript -e 'install.packages("base")'
       - name: Render my document to all types
-        run: Rscript -e 'rmarkdown::render("BETA_20210505_no_revolut.Rmd", output_format = "all")'
+        run: Rscript -e 'rmarkdown::render("BETA_20210505_no_revolut.Rmd", output_format = "html document")'
       - name: Commit results
         run: |
           git add docs/my-document*
