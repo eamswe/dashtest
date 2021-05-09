@@ -14,9 +14,9 @@ jobs:
       - name: Render document
         uses: lc5415/rmarkdown-action@v1
         with:
-          input_file: path/to/my_doc.Rmd
+          input_file: BETA_20210505_no_revolut.Rmd
 	  output_format: html_document
-      - name: Commit files
+      - name: BETA_20210505_no_revolut
         run: |
           git config --local core.autocrlf false
           git config --local user.email "${{ github.actor }}@users.noreply.github.com"
