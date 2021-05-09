@@ -9,7 +9,7 @@ name: Render my document
 jobs:
   render:
     name: Render my document
-    runs-on: ubuntu-latest
+    runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@v1
