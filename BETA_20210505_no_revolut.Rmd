@@ -187,8 +187,6 @@ dygraph(ox_xts)  %>%
 ### COVID-19  14 day Incidence per 100,000
 
 ```{r}
-
-
 fnrollsuml <- function (x) {
   if (length(x) < 14) {
     rep(NA,length(x)) 
@@ -235,7 +233,6 @@ dygraph(ECDC_xts) %>%
   dyHighlight(highlightCircleSize = 5, 
               highlightSeriesBackgroundAlpha = 0.5,
               hideOnMouseOut = TRUE)
-
 ```
 
 Column {data-width=350}
