@@ -1,6 +1,6 @@
   
 on:
-  push:
+  workflow_dispatch:
     paths:
       - BETA_20210505_no_revolut.Rmd
 
