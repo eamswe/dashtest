@@ -21,8 +21,6 @@ color:#EDECE5!important;
 ```{r setup, include=FALSE}
 library("flexdashboard")
 library("plotly")
-library("reshape2")
-library("tidyquant")
 library("zoo")
 library("xts")
 library("dygraphs")
