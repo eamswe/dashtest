@@ -5,7 +5,6 @@ output:
   flexdashboard::flex_dashboard:
     orientation: rows
     vertical_layout: scroll
-    html_document:
 
 ---
 
@@ -20,30 +19,21 @@ color:#EDECE5!important;
 </style> 
 
 ```{r setup, include=FALSE}
-setwd("C:/Users/sweeneye/Desktop/Revolut")
 library("flexdashboard")
 library("readxl")
 library("plotly")
 library("reshape2")
 library("tidyquant")
-library("quantmod")
-library("TTR")
 library("zoo")
 library("xts")
 library("dygraphs")
-library("rio")
 library("openxlsx")
 library("parsedate")
 library("janitor")
 library("dplyr")
 library("tidyverse")
 library("ggplot2")
-library("readr")
-library("tidyr")
-library("forcats")
 library("timetk")
-library("raster")
-library("viridis")
 library("plotly")
 library("tidyverse")
 
