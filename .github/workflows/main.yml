@@ -1,6 +1,3 @@
-- name: Github action for rmarkdown
-  uses: lucharo/rmarkdown-action@v1
-name: Render documents and upload
 
 on:
   push:
@@ -18,7 +15,7 @@ jobs:
         uses: lc5415/rmarkdown-action@v1
         with:
           input_file: path/to/my_doc.Rmd
-	  output_format: html
+	  output_format: html_document
       - name: Commit files
         run: |
           git config --local core.autocrlf false
