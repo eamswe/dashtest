@@ -16,7 +16,8 @@ jobs:
         with:
           input_file: BETA_20210505_no_revolut.Rmd
 	  output_format: html_document
-      - name: BETA_20210505_no_revolut
+	  
+	  - name: Commit files
         run: |
           git config --local core.autocrlf false
           git config --local user.email "${{ github.actor }}@users.noreply.github.com"
@@ -29,4 +30,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           branch: ${{ github.head_ref }}
-          github_token: ${{ secrets.GITHUB_TOKEN }
+          github_token: ${{ secrets.GITHUB_TOKEN }}
