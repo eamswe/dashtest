@@ -187,13 +187,59 @@ dygraph(ox_xts)  %>%
 ### COVID-19  14 day Incidence per 100,000
 
 ```{r}
-ECDC_xts <- tk_xts(spread_JHU, select = Ireland | United.Kingdom | Italy | Sweden | France | Germany | Belgium, date_var = date) 
+library("plotly")
+library("zoo")
+library("xts")
+library("dygraphs")
+library("openxlsx")
+library("parsedate")
+library("janitor")
+library("dplyr")
+library("tidyverse")
+library("ggplot2")
+library("timetk")
+library("plotly")
+library("tidyverse")
+ECDCcovid <- read.csv("https://opendata.ecdc.europa.eu/covid19/casedistribution/csv", na.strings = "", fileEncoding = "UTF-8-BOM")
+ECDCcovid <- clean_names(ECDCcovid)
+ECDCcovid$date_rep <- as.Date(ECDCcovid$date_rep , format = "%d/%m/%y")
+COVID_EU_pop <- subset(ECDCcovid, geo_id=="IE" | geo_id=="BE" | geo_id=="BG" | geo_id=="CZ" | geo_id=="DK" | geo_id=="DE" | geo_id=="EE" | geo_id=="EL" | geo_id=="ES" | geo_id=="FR" | geo_id=="HR" | geo_id=="IT" | geo_id=="CY" | geo_id=="LV" | geo_id=="LT" | geo_id=="LU" | geo_id=="HU" | geo_id=="MT" | geo_id=="NL" | geo_id=="AT" | geo_id=="PL" | geo_id=="PT" | geo_id=="RO" | geo_id=="SI" | geo_id=="SK" | geo_id=="FI" | geo_id=="SE" | geo_id=="UK",
+                       select=c(date_rep, countries_and_territories, pop_data2019))
+COVID_EU_pop <- subset(COVID_EU_pop, date_rep == "2020-12-14")
+
+
+COVID_EU_pop <- COVID_EU_pop %>% 
+  rename(
+    country = countries_and_territories,
+  )
+COVID_EU_pop <- COVID_EU_pop %>% 
+  mutate(country = ifelse(as.character(country) == "United_Kingdom", "United.Kingdom", as.character(country)))
+JHU_covid <- read.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/jhu/new_cases.csv", na.strings = "", fileEncoding = "UTF-8-BOM")
+JHU_covid <- JHU_covid %>% gather(country, cases, -c(date))
+JHU_covid <- merge(COVID_EU_pop, JHU_covid, by ="country")
+JHU_covid$date_rep <- NULL
+
+JHU_covid <- JHU_covid %>%
+  group_by(country) %>%
+  mutate(pop100k = pop_data2019/100000)
+JHU_covid$date <- as.Date(JHU_covid$date , format = "%Y-%m-%d")
+JHU_covid <- arrange(JHU_covid, date)
+JHU_covid <- JHU_covid %>% 
+  group_by(country)%>%
+  mutate(cumcases=fnrollsuml(cases))
+JHU_covid <- JHU_covid %>% 
+  mutate(incidence_14day_per_100k = cumcases/pop100k)
+spread_cases <- subset(JHU_covid,
+                        select=c(country, date, incidence_14day_per_100k))
+spread_cases <- spread(spread_cases, country, incidence_14day_per_100k)
+ECDC_xts <- tk_xts(spread_cases, select = Ireland | United.Kingdom | Spain | Italy | Sweden | France | Germany | Belgium, date_var = date) 
 dygraph(ECDC_xts) %>%
   dyOptions(colors = RColorBrewer::brewer.pal(8, "Dark2")) %>%
   dySeries("Ireland", strokeWidth = 5, color = "#00a685") %>%
   dyHighlight(highlightCircleSize = 5, 
               highlightSeriesBackgroundAlpha = 0.5,
               hideOnMouseOut = TRUE)
+
 ```
 
 Column {data-width=350}
