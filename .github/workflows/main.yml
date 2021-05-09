@@ -19,7 +19,7 @@ jobs:
       - name: Install plotly
         run: Rscript -e 'install.packages("plotly")'
       - name: Install tidy
-        run: Rscript -e 'install.packages("tidverse")'
+        run: Rscript -e 'install.packages("tidyverse")'
       - name: Install dy
         run: Rscript -e 'install.packages("dygraphs")'
       - name: Install gg
