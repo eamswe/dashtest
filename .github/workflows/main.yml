@@ -1,4 +1,4 @@
-
+name: Render and upload docs 
 on:
   push:
     branches: [ master ]
@@ -6,18 +6,18 @@ on:
     branches: [ master ]
 
 jobs:
-  render_document:
+  test:
+    name: Render PDF and upload
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v2
-      - name: Render document
-        uses: lc5415/rmarkdown-action@v1
+      - name: Compile PDF document from rmd
+        uses: ./
         with:
           input_file: BETA_20210505_no_revolut.Rmd
-	  output_format: html_document
-	  
-	  - name: Commit files
+          output_format: html_document
+      - name: Commit files
         run: |
           git config --local core.autocrlf false
           git config --local user.email "${{ github.actor }}@users.noreply.github.com"
