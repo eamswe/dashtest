@@ -189,6 +189,13 @@ dygraph(ox_xts)  %>%
 ```{r}
 
 
+fnrollsuml <- function (x) {
+  if (length(x) < 14) {
+    rep(NA,length(x)) 
+  } else {
+    rollsum(x,14,align="right",na.pad=TRUE)
+  }
+}
 ECDCcovid <- read.csv("https://opendata.ecdc.europa.eu/covid19/casedistribution/csv", na.strings = "", fileEncoding = "UTF-8-BOM")
 ECDCcovid <- clean_names(ECDCcovid)
 ECDCcovid$date_rep <- as.Date(ECDCcovid$date_rep , format = "%d/%m/%y")
@@ -219,7 +226,7 @@ JHU_covid <- JHU_covid %>%
 JHU_covid <- JHU_covid %>% 
   mutate(incidence_14day_per_100k = cumcases/pop100k)
 spread_cases <- subset(JHU_covid,
-                        select=c(country, date, incidence_14day_per_100k))
+                       select=c(country, date, incidence_14day_per_100k))
 spread_cases <- spread(spread_cases, country, incidence_14day_per_100k)
 ECDC_xts <- tk_xts(spread_cases, select = Ireland | United.Kingdom | Italy | Sweden | France | Germany | Belgium, date_var = date) 
 dygraph(ECDC_xts) %>%
