@@ -193,20 +193,16 @@ Column {data-width=350}
 ```{r}
 mobility <- read.csv(url("https://raw.githubusercontent.com/ActiveConclusion/COVID19_mobility/master/google_reports/mobility_report_countries.csv"))
 mobility <- clean_names(mobility)
-
 mobility_IE <- subset(mobility, country=="Ireland" & region=="Total",
-                   select=c(date, retail_and_recreation, grocery_and_pharmacy, transit_stations, workplaces, residential))
-
-
+                      select=c(date, retail_and_recreation, grocery_and_pharmacy, transit_stations, workplaces, residential))
 mobility_IE <- mobility_IE %>% mutate(retail_recreation = zoo::rollmeanr(retail_and_recreation, k = 7, fill = NA),
                                       grocery_pharmacy = zoo::rollmeanr(grocery_and_pharmacy, k = 7, fill = NA),
                                       public_transport = zoo::rollmeanr(transit_stations, k = 7, fill = NA),
                                       workplaces = zoo::rollmeanr(workplaces, k = 7, fill = NA),
                                       residential = zoo::rollmeanr(residential, k = 7, fill = NA)) 
 mob_IE <- subset(mobility_IE, 
-                      select=c(date, retail_recreation, grocery_pharmacy, public_transport, workplaces, residential))
+                 select=c(date, retail_recreation, grocery_pharmacy, public_transport, workplaces, residential))
 mob_IE$date <- as.Date(mob_IE$date , format = "%Y-%m-%d")
-
 mobility_IE <- mob_IE
 mobility_IE$date <- as.Date(mobility_IE$date , format = "%Y-%m-%d")
 IE_mob_xts <- tk_xts(mobility_IE, select = retail_recreation | workplaces | grocery_pharmacy | public_transport | residential, date_var = date)
@@ -216,9 +212,8 @@ dygraph(IE_mob_xts) %>%
   dySeries("retail_recreation", strokeWidth = 3, color = "#a3915e") %>%
   dySeries("grocery_pharmacy", strokeWidth = 3, color = "#004D44") %>%
   dySeries("public_transport", strokeWidth = 3, color = "#dbac00") %>%
- dyRangeSelector() %>%
+  dyRangeSelector() %>%
   dyAxis("y", label = "Change from baseline (Feb avg. per day)")
-
 
 ```
 
