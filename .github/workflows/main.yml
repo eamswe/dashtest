@@ -1,8 +1,6 @@
   
 on:
   workflow_dispatch:
-    paths:
-      - BETA_20210505_no_revolut.Rmd
 
 name: Render my document
 
@@ -38,26 +36,14 @@ jobs:
         run: Rscript -e 'install.packages("flexdashboard")'
       - name: Install bse
         run: Rscript -e 'install.packages("base")'
-      - name: Render my document to all types
-        run: Rscript -e 'mobility <- read.csv(url("https://raw.githubusercontent.com/ActiveConclusion/COVID19_mobility/master/google_reports/mobility_report_countries.csv"))
-mobility <- clean_names(mobility)
-
-mobility_IE <- subset(mobility, country=="Ireland" & region=="Total",
-                   select=c(date, retail_and_recreation, grocery_and_pharmacy, transit_stations, workplaces, residential))
-
-
-mobility_IE <- mobility_IE %>% mutate(retail_recreation = zoo::rollmeanr(retail_and_recreation, k = 7, fill = NA),
-                                      grocery_pharmacy = zoo::rollmeanr(grocery_and_pharmacy, k = 7, fill = NA),
-                                      public_transport = zoo::rollmeanr(transit_stations, k = 7, fill = NA),
-                                      workplaces = zoo::rollmeanr(workplaces, k = 7, fill = NA),
-                                      residential = zoo::rollmeanr(residential, k = 7, fill = NA)) 
-mob_IE <- subset(mobility_IE, 
-                      select=c(date, retail_recreation, grocery_pharmacy, public_transport, workplaces, residential))
-mob_IE$date <- as.Date(mob_IE$date , format = "%Y-%m-%d")
-
-write.csv(mob_IE[,c("date","retail_recreation","grocery_pharmacy", "public_transport", "workplaces", "residential" )], file="mobility.csv",row.names=TRUE)'
-      - name: Commit results
+      - name: Generate data
         run: |
-          git add docs/my-document*
-          git commit -m 'Re-build my-document' || echo "No changes to commit"
-          git push origin || echo "No changes to commit"
+          source("R/job.R")
+        shell: Rscript {0} 
+      - name: Commit files
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add --all
+          git commit -am "add data"
+          git push 
