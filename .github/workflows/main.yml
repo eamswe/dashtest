@@ -1,6 +1,8 @@
 name: Render library update
 on:
   workflow_dispatch:
+  push:
+    branches: main
 
 jobs:
   build:
@@ -16,8 +18,6 @@ jobs:
           Rscript -e "source('mobilityIE.R')"
       - name: Commit results
         run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
           git add -A
-          git add mobility.csv
+          git commit -m 'New Executive Order signed - data updated!' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
