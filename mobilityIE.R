@@ -1,5 +1,6 @@
 library('tidyverse')
 library('janitor')
+library('zoo')
 mobility <- read.csv(url("https://raw.githubusercontent.com/ActiveConclusion/COVID19_mobility/master/google_reports/mobility_report_countries.csv"))
 mobility <- clean_names(mobility)
 
