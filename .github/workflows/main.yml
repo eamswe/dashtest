@@ -15,12 +15,6 @@ jobs:
       - name: Install tidy
         run: Rscript -e 'install.packages("dplyr")'
         shell: Rscript {0}
-      - name: Install dy
-        run: Rscript -e 'install.packages("dygraphs")'
-        shell: Rscript {0}
-      - name: Install gg
-        run: Rscript -e 'install.packages("ggthemes")'
-        shell: Rscript {0}
       - name: Install openxlsx
         run: Rscript -e 'install.packages("openxlsx")'
         shell: Rscript {0}
