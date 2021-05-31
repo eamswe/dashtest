@@ -12,30 +12,29 @@ jobs:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@v1
       - uses: r-lib/actions/setup-pandoc@v1
-      - name: Install rmarkdown
-        run: Rscript -e 'install.packages("rmarkdown")'
-      - name: Install plotly
-        run: Rscript -e 'install.packages("plotly")'
       - name: Install tidy
-        run: Rscript -e 'install.packages("tidyverse")'
+        run: Rscript -e 'install.packages("dplyr")'
+        shell: Rscript {0}
       - name: Install dy
         run: Rscript -e 'install.packages("dygraphs")'
+        shell: Rscript {0}
       - name: Install gg
         run: Rscript -e 'install.packages("ggthemes")'
+        shell: Rscript {0}
       - name: Install openxlsx
         run: Rscript -e 'install.packages("openxlsx")'
+        shell: Rscript {0}
       - name: Install zoo
         run: Rscript -e 'install.packages("zoo")'
+        shell: Rscript {0}
       - name: Install jnt
         run: Rscript -e 'install.packages("janitor")'
+        shell: Rscript {0}
       - name: Install prsdt
         run: Rscript -e 'install.packages("parsedate")'
-      - name: Install timtk
-        run: Rscript -e 'install.packages("timetk")'
-      - name: Install flex
-        run: Rscript -e 'install.packages("flexdashboard")'
       - name: Install bse
         run: Rscript -e 'install.packages("base")'
+        shell: Rscript {0}
       - name: Generate data
         run: |
           source("mobilityIE.R")
