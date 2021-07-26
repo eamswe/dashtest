@@ -1,7 +1,7 @@
 name: Render library update
 on:
-  workflow_dispatch:
-  push:
+  schedule:
+  - cron: "0 9 * * 1-5"
     branches: main
 
 jobs:
