@@ -269,7 +269,7 @@ JHU_IE <- JHU_IE %>%
   rename(
     "7 day average cases" = incidence_14day_per_100k
   )
-write.csv(JHU_ie_cases), file = "ie_7d_cases.csv", row.names =TRUE)
+write.csv(JHU_ie_cases, file = "ie_7d_cases.csv", row.names =TRUE)
 
 JHU_deaths<- read.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/jhu/new_deaths_per_million.csv", na.strings = "", fileEncoding = "UTF-8-BOM")
 JHU_deaths <- JHU_deaths %>% gather(country, deaths_per_mill, -c(date))
@@ -286,7 +286,7 @@ JHU_deaths<- JHU_deaths %>%
 spread_deaths <- subset(JHU_deaths,
                         select=c(country, date, day_14_deaths_per_mill))
 spread_deaths <- spread(spread_deaths, country, day_14_deaths_per_mill)
-write.csv(spread_deaths), file = "deaths_per_mill.csv", row.names =TRUE)
+write.csv(spread_deaths, file = "deaths_per_mill.csv", row.names =TRUE)
 
 COVID_EU_pop <- subset(ECDCcovid, geo_id=="IE" | geo_id=="BE" | geo_id=="CZ" | geo_id=="DK" | geo_id=="DE" | geo_id=="EL" | geo_id=="ES" | geo_id=="FR" | geo_id=="HR" | geo_id=="IT" | geo_id=="NL" | geo_id=="AT" | geo_id=="PT"| geo_id=="FI" | geo_id=="SE" | geo_id=="UK",
                        select=c(date_rep, countries_and_territories, pop_data2019))
