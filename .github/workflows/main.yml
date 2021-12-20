@@ -1,7 +1,7 @@
 name: Render library update
 on:
   schedule:
-  - cron: "45 9 * * 1-5"
+  - cron: "45 10 * * 1-5"
     branches: main
 
 jobs:
