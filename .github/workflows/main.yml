@@ -15,7 +15,7 @@ jobs:
           Rscript -e "install.packages(c('tidyverse', 'janitor', 'zoo', 'httr', 'openxlsx', 'ISOweek'))"
       - name: Render r plot file
         run:
-          Rscript -e "source('codes.R')"
+          Rscript -e "source('mobilityIE.R')"
       - name: Commit results
         run: |
           git add -A
